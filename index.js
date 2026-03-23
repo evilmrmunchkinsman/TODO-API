@@ -1,4 +1,4 @@
-const Todo= require("./models.Todo")
+const Todo= require("./models/Todo")
 const express = require('express');
 const connectDB= require("./config/db");
 const app= express()
@@ -40,12 +40,13 @@ app.post('/todos',validateTodo,async(req,res) =>{
 	})
 res.json(newTodo)
 } catch(error){
+	console.log(error)
 	res.status(500).json({message: "server error"})
 }
 });
 
 //addig an id
-app/get('/todos/:id', async(req,res) => {
+app.get('/todos/:id', async(req,res) => {
 	try{
 		const todo= await Todo.findById(req.params.id);
 		if(!todo) {
